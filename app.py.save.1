@@ -1,0 +1,21 @@
+import requests
+from twilio.rest import Client
+
+# Twilio Configuration
+TWILIO_SID = "your_real_twilio_sid"
+TWILIO_AUTH = "your_real_twilio_auth_token"
+TWILIO_NUMBER = "+your_twilio_phone_number"
+ALERT_PHONE = "+your_verified_phone_number"
+
+def send_sms_alert(message, phone_number):
+    try:
+        client = Client(TWILIO_SID, TWILIO_AUTH)
+        message = client.messages.create(
+            body=message,
+            from_=TWILIO_NUMBER,
+            to=phone_number
+        )
+        print(f"SMS sent successfully! Message SID: {message.sid}")
+    except Exception as e:
+        print(f"Error sending SMS: {str(e)}")
+
