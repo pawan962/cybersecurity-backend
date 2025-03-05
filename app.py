@@ -1,3 +1,4 @@
+import ssl
 import os
 import smtplib
 from flask import Flask, request, jsonify
@@ -10,9 +11,10 @@ CORS(app)
 from pymongo import MongoClient
 
 # Correct MongoDB Connection String
-client = MongoClient("mongodb+srv://pawan962:Pawan0509@cluster0.2ulqp.mongodb.net/cybersecurity_db?retryWrites=true&w=majority")
+MONGO_URI = "mongodb+srv://pawan962:<db_password>@cluster0.2ulqp.mongodb.net/?retryWrites=true&w=majority"
+
+client = MongoClient(MONGO_URI, ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
 db = client["cybersecurity_db"]
-threats_collection = db["threat_logs"]
 
 # Email Configuration
 EMAIL_USER = "your_email@gmail.com"
