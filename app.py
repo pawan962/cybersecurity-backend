@@ -11,10 +11,15 @@ CORS(app)
 from pymongo import MongoClient
 
 # Correct MongoDB Connection String
-MONGO_URI = "mongodb+srv://pawan962:<db_password>@cluster0.2ulqp.mongodb.net/?retryWrites=true&w=majority"
 
-client = MongoClient(MONGO_URI, ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
+
+MONGO_URI = "mongodb+srv://pawan962:Pawan@0509@cluster0.2ulqp.mongodb.net/?retryWrites=true&w=majority&tls=true"
+
+client = MongoClient(MONGO_URI)
 db = client["cybersecurity_db"]
+
+
+
 
 # Email Configuration
 EMAIL_USER = "your_email@gmail.com"
