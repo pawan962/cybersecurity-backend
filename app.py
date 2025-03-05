@@ -7,18 +7,38 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 CORS(app)
+import os
+import smtplib
+import urllib.parse
+import certifi
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from pymongo import MongoClient
+
+app = Flask(__name__)
+CORS(app)
 
 # ✅ MongoDB Credentials (ENCODED to prevent errors)
-USERNAME = urllib.parse.quote_plus("pawan962")  # Your MongoDB username
-PASSWORD = urllib.parse.quote_plus("Pawan0509")  # Your MongoDB password
+USERNAME = urllib.parse.quote_plus("pawan962")  # Replace with your username
+PASSWORD = urllib.parse.quote_plus("Pawan0509")  # Replace with your password
 
 # ✅ Correct MongoDB Connection String (NO MORE ERRORS)
-MONGO_URI = f"mongodb+srv://{USERNAME}:{PASSWORD}@cluster0.2ulqp.mongodb.net/cybersecurity_db?retryWrites=true&w=majority"
+MONGO_URI = f"mongodb+srv://{USERNAME}:{PASSWORD}@cluster0.2ulqp.mongodb.net/cybersecurity_db?retryWrites=true&w=majority&tls=true"
 
-# ✅ Connect to MongoDB
-client = MongoClient(MONGO_URI)
+# ✅ Secure Connection Using `certifi` (FIXES SSL ERROR)
+client = MongoClient(MONGO_URI, tlsCAFile=certifi.where())
+
 db = client["cybersecurity_db"]
 threats_collection = db["threat_logs"]
+
+@app.route('/get-threats', methods=['GET'])
+def get_threats():
+    """Retrieve stored threats from MongoDB."""
+    threats = list(threats_collection.find({}, {"_id": 0}))
+    return jsonify(threats)
+
+if __name__ == '__main__':
+    app.run(debug=True, host="0.0.0.0", port=5000)
 
 # ✅ Email Configuration
 EMAIL_USER = "your_email@gmail.com"
