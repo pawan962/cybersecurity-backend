@@ -1,3 +1,4 @@
+import certifi
 import os
 import smtplib
 import urllib.parse
