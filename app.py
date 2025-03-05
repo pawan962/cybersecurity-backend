@@ -7,8 +7,10 @@ from pymongo import MongoClient
 app = Flask(__name__)
 CORS(app)
 
-# Database Setup (MongoDB)
-client = MongoClient("mongodb://localhost:27017/")
+from pymongo import MongoClient
+
+# Correct MongoDB Connection String
+client = MongoClient("mongodb+srv://pawan962:Pawan0509@cluster0.2ulqp.mongodb.net/cybersecurity_db?retryWrites=true&w=majority")
 db = client["cybersecurity_db"]
 threats_collection = db["threat_logs"]
 
