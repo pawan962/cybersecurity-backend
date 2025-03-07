@@ -23,10 +23,8 @@ CORS(app)
 USERNAME = urllib.parse.quote_plus("pawan962")  # Replace with your username
 PASSWORD = urllib.parse.quote_plus("Pawan0509")  # Replace with your password
 
-# ✅ Correct MongoDB Connection String (NO MORE ERRORS)
-MONGO_URI = f"mongodb+srv://{USERNAME}:{PASSWORD}@cluster0.2ulqp.mongodb.net/cybersecurity_db?retryWrites=true&w=majority&tls=true"
-
-# ✅ Secure Connection Using `certifi` (FIXES SSL ERROR)
+import certifi
+MONGO_URI = "mongodb+srv://pawan962:Pawan0509@your-cluster.mongodb.net/cybersecurity_db?retryWrites=true&w=majority&tls=true"
 client = MongoClient(MONGO_URI, tlsCAFile=certifi.where())
 
 db = client["cybersecurity_db"]
