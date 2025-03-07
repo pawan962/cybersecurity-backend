@@ -19,12 +19,13 @@ from pymongo import MongoClient
 app = Flask(__name__)
 CORS(app)
 
-# ✅ MongoDB Credentials (ENCODED to prevent errors)
-USERNAME = urllib.parse.quote_plus("pawan962")  # Replace with your username
-PASSWORD = urllib.parse.quote_plus("Pawan0509")  # Replace with your password
-
 import certifi
-MONGO_URI = "mongodb+srv://pawan962:Pawan0509@your-cluster.mongodb.net/cybersecurity_db?retryWrites=true&w=majority&tls=true"
+from pymongo import MongoClient
+
+USERNAME = "pawan962"
+PASSWORD = "Pawan0509"
+MONGO_URI = f"mongodb+srv://{USERNAME}:{PASSWORD}@cluster0.mongodb.net/cybersecurity_db?retryWrites=true&w=majority"
+
 client = MongoClient(MONGO_URI, tlsCAFile=certifi.where())
 
 db = client["cybersecurity_db"]
